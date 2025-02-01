@@ -1,13 +1,129 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>San Valentín</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>San Valentín</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      background-color: #e0f7fa;
+      position: relative;
+    }
+    .elements {
+      position: absolute;
+    }
+    .element {
+      position: absolute;
+      opacity: 0.8;
+      animation: moveElement 5s linear infinite;
+    }
+    .content {
+      text-align: center;
+      background-color: white;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 80%;
+      min-width: 280px;
+      z-index: 1;
+    }
+    h1 {
+      font-size: clamp(24px, 5vw, 36px);
+      color: #333;
+      margin-bottom: 1.5em;
+    }
+    p {
+      font-size: clamp(16px, 4vw, 20px);
+      color: #555;
+      margin-bottom: 2em;
+    }
+    button {
+      padding: 1em 2em;
+      font-size: clamp(16px, 4vw, 20px);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      margin-bottom: 1em;
+    }
+    button:nth-child(1) {
+      background-color: #4CAF50;
+      color: white;
+    }
+    button:nth-child(2) {
+      background-color: #f44336;
+      color: white;
+    }
+    @keyframes moveElement {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+      50% { transform: translateY(-40px) rotate(25deg); opacity: 1; }
+      100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="elements" id="elements"></div>
+    
+    <div class="content">
+      <h1>Hola mi amor 🥰</h1>
+      <p>¿Quieres ser mi San valentín?</p>
+      <div>
+        <button onclick="handleYesClick()">Sí</button>
+        <button onclick="handleNoClick()">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const types = ["🌻", "🌷", "🦋", "💖"];
+    const elementsContainer = document.getElementById("elements");
+
+    function generateElements() {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const baseSize = Math.min(screenWidth, screenHeight) * 0.05;
+
+      // Limpiar los elementos previos
+      elementsContainer.innerHTML = '';
+
+      for (let i = 0; i < 30; i++) {
+        const el = document.createElement("span");
+        el.classList.add("element");
+        el.textContent = types[Math.floor(Math.random() * types.length)];
+        el.style.left = `${Math.random() * 90}vw`; // Limitamos la posición horizontal
+        el.style.top = `${Math.random() * 90}vh`; // Limitamos la posición vertical
+        el.style.fontSize = `${Math.random() * baseSize + baseSize * 0.6}px`;
+        el.style.animationDuration = `${Math.random() * 8 + 5}s`;
+
+        elementsContainer.appendChild(el);
+      }
+    }
+
+    function handleYesClick() {
+      alert("¡Wooww! Te amo mucho mi amor 😍, me alegro que hayas elegido que si,  nos vemos el 14");
+    }
+
+    function handleNoClick() {
+      alert("¡Oh no! 😢, no te preocupes, te sigo amando");
+    }
+
+    // Inicializar elementos al cargar la página
+    window.addEventListener("load", generateElements);
+
+    // Regenerar elementos cuando la ventana cambie de tamaño
+    window.addEventListener("resize", generateElements);
+  </script>
+</body>
 </html>
